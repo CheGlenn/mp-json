@@ -40,7 +40,7 @@ public class JSONString implements JSONValue{
     if (value == null) {
       return "null";
     } else {
-      return this.value.toString();
+      return this.value
     }
   } // toString()
 
@@ -74,19 +74,28 @@ public class JSONString implements JSONValue{
    * Write the value as JSON.
    */
   public void writeJSON(PrintWriter pen) {
-    String returnString = new String();
-    for (int i = 0; i < this.value.length(); i++) {
-      if (this.value.charAt(i) == 'c' ){
-        returnString += null;
+    pen.println(writeJSONHelper(this.value))
+  } // writeJSON(PrintWriter)
 
 
-
-        if (this.value.charAt(i+1) == '"') {
-          returnString += '"';
-        }
+  /**
+   * Helper of writeJSON, takes in a str and translates to JSON
+   * @param str
+   * @post target string translates to JSON
+   */
+  public String writeJSONHelper(String str){
+    String target = "";
+    
+    for (int i = 0; i < str.length(); i++) {
+      if (str.charAt(i) == '"'){
+        target += '\"'
+      } else {
+        target += str.charAt(i);
       }
     }
-  } // writeJSON(PrintWriter)
+
+    return target;
+  }
 
   /**
    * Get the underlying value.
