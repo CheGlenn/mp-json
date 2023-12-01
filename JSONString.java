@@ -3,6 +3,7 @@ import java.util.Comparator;
 
 /**
  * JSON strings.
+ * @author Sam R. , Che Glenn, Maria Rodriguez
  */
 public class JSONString implements JSONValue{
 

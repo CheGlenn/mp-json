@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.PrintWriter;
 import java.util.Hashtable;
 
@@ -13,7 +14,7 @@ public class JSONHashExperiments {
   /**
    * Do whatever experiments seem reasonable.
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception{
     // Create our normal output mechanism.
     final PrintWriter pen = new PrintWriter(System.out, true);
     // Convert the PrintWriter to a Reporter.
@@ -22,6 +23,10 @@ public class JSONHashExperiments {
         pen.println("*** " + str);
       } // report(String)
     }; // new Reporter()
+
+    File name = new File("test.txt");
+    //PrintWriter pen = new PrintWriter(System.out, true);
+    pen.println(JSON.parseFile("test.txt").toString());  
 
     // Create a new hash table
     JSONHash<JSONString, JSONValue> htab =
@@ -40,7 +45,7 @@ public class JSONHashExperiments {
     // HashTableExperiments.matchingSetExpt(pen, htab);
     // HashTableExperiments.multipleSetExpt(pen, htab);
     // HashTableExperiments.removeExpt(pen, htab);
-    HashTableExperiments.toStringExperiment(pen, htab);
+    //HashTableExperiments.toStringExperiment(pen, htab);
   } // main(String[])
 
 } // class ChainedHashTableExperiments

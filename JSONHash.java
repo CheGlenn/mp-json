@@ -6,6 +6,8 @@ import java.util.Random;
 
 /**
  * JSON hashes/objects.
+ * Much of the hash table code was taken from the "Chaining in HashTables" lab 
+ * @author Sam R., Che Glenn, Maria Rodriguez
  */
 public class JSONHash<K,V> implements JSONValue{
 
@@ -85,13 +87,19 @@ public class JSONHash<K,V> implements JSONValue{
   public String toString() {
     String returnString = "{";
 
+    /**
+     * Loop through each bucket, and the array list in each bucket, to print every KV pair in hash
+     */
     for (int i = 0; i < this.buckets.length; i++) {
       @SuppressWarnings("unchecked")
       ArrayList<Pair<K,V>> alist = (ArrayList<Pair<K,V>>) this.buckets[i];
-
-      if(alist != null){
-        for (Pair<K,V> pair : alist){
-          returnString += " '" + pair.key() + "': " + pair.value() + ",";
+      if (alist != null) {
+        for (int j = 0; j < alist.size(); j++) {
+          if (j == alist.size()) {
+            returnString += "'" + alist.get(j).key() + "': " + alist.get(j).value();
+          } else{
+            returnString += "'" + alist.get(j).key() + "': " + alist.get(j).value() + ",";
+          }
         }
       }
     }
@@ -105,11 +113,22 @@ public class JSONHash<K,V> implements JSONValue{
    */
   public boolean equals(Object other) {
     
+    /**
+     * check if other object is a hash
+     */
     if ((other instanceof JSONHash)) {
+
+      /**
+       * Create new hash using other, not neccessary but is cleaner 
+       */
 
       @SuppressWarnings("unchecked")
       JSONHash<JSONString,JSONValue> otherHash = (JSONHash<JSONString,JSONValue>) other;
 
+      /**
+       * check if hashes size are the same, then check if the array lists in each last are the same
+       * if not the same return false
+       */
       if (this.size == otherHash.size) {
           for (int i = 0; i < this.buckets.length; i++) {
             if (this.buckets[i] != null){

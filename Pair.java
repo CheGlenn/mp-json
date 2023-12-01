@@ -1,5 +1,6 @@
 /**
  * Simple, immutable, key/value pairs
+ * @author Sam R.
  */
 public class Pair<K,V> {
 

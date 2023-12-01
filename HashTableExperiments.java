@@ -63,8 +63,10 @@ public class HashTableExperiments {
    * @param htab
    */
   public static void toStringExperiment(PrintWriter pen, JSONHash<JSONString,JSONValue> htab) {
-    htab.set(new JSONString("anteater"), new JSONString("anteater"));
-    htab.set(new JSONString("buffalo"), new JSONString("buffalo"));
+    htab.set(new JSONString("string"), new JSONString("anteater"));
+    htab.set(new JSONString("integer"), new JSONInteger(1));
+    htab.set(new JSONString("real"), new JSONReal(30.5));
+    // //htab.set(new JSONString(null));
     pen.println(htab.toString());
   }
 

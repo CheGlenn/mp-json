@@ -4,6 +4,7 @@ import java.util.function.Function;
 
 /**
  * Some utilities for working with iterators.
+ * @author Sam R.
  */
 public class MiscUtils {
   public static Random rand = new Random();
