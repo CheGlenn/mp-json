@@ -35,7 +35,7 @@ public class JSONArray {
    * Convert to a string (e.g., for printing).
    */
   public String toString() {
-    Str string = "[";
+    String string = "[";
     Iterator iter = this.values.iterator();
     while(iter.hasNext()){
       string += iter.next();
@@ -78,7 +78,7 @@ public class JSONArray {
    * Write the value as JSON.
    */
   public void writeJSON(PrintWriter pen) {
-    pen.println(this.toString)
+    pen.println(this.toString());
   } // writeJSON(PrintWriter)
 
   /**
