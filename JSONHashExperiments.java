@@ -1,4 +1,5 @@
 import java.io.PrintWriter;
+import java.util.Hashtable;
 
 /**
  * A simple experiment with probed hash tables.
@@ -34,11 +35,12 @@ public class JSONHashExperiments {
 
     // Conduct some of the experiments
     //HashTableExperiments.matchingKeysExpt(pen, htab);
-    HashTableExperiments.equalsExpt(pen, htab, other);
+    //HashTableExperiments.equalsExpt(pen, htab, other);
     //HashTableExperiments.repeatedSetExpt(pen, htab);
     // HashTableExperiments.matchingSetExpt(pen, htab);
     // HashTableExperiments.multipleSetExpt(pen, htab);
     // HashTableExperiments.removeExpt(pen, htab);
+    HashTableExperiments.toStringExperiment(pen, htab);
   } // main(String[])
 
 } // class ChainedHashTableExperiments

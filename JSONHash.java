@@ -7,7 +7,7 @@ import java.util.Random;
 /**
  * JSON hashes/objects.
  */
-public class JSONHash<K,V>{
+public class JSONHash<K,V> implements JSONValue{
 
   // +--------+------------------------------------------------------
   // | Fields |
@@ -62,11 +62,12 @@ public class JSONHash<K,V>{
     this.rand = new Random();
     this.clear();
     this.reporter = null;
-    this.size = 0;
+
   }
 
     /**
    * Create a new hash table that reports activities using a reporter.
+   * @author Sam R.
    */
   public JSONHash(Reporter reporter) {
     this();
@@ -82,28 +83,43 @@ public class JSONHash<K,V>{
    * Convert to a string (e.g., for printing).
    */
   public String toString() {
-    String str = "{ ";
-    while (this.iterator().hasNext()){
-      str += this.iterator().next().toString();
+    String returnString = "{";
+
+    for (int i = 0; i < this.buckets.length; i++) {
+      @SuppressWarnings("unchecked")
+      ArrayList<Pair<K,V>> alist = (ArrayList<Pair<K,V>>) this.buckets[i];
+
+      if(alist != null){
+        for (Pair<K,V> pair : alist){
+          returnString += " '" + pair.key() + "': " + pair.value() + ",";
+        }
+      }
     }
 
-    return str + " }";
+    return returnString + "}";
+
   } // toString()
 
   /**
    * Compare to another object.
    */
   public boolean equals(Object other) {
-    if ((other instanceof JSONHash)){
-      if (this.size == ((JSONHash<JSONString, JSONValue>) other).size) {
-        while (this.iterator().hasNext()) {
-          for (int i = 0; i < this.size; i++) {
-            if (!(this.buckets[i].equals(((JSONHash<JSONString, JSONValue>) other).buckets[i]))) {
-              return false;
+    
+    if ((other instanceof JSONHash)) {
+
+      @SuppressWarnings("unchecked")
+      JSONHash<JSONString,JSONValue> otherHash = (JSONHash<JSONString,JSONValue>) other;
+
+      if (this.size == otherHash.size) {
+          for (int i = 0; i < this.buckets.length; i++) {
+            if (this.buckets[i] != null){
+              if (!(this.buckets[i].equals(otherHash.buckets[i]))) {
+                return false;
+              } else{
+                return true;
+              }
+            }
           }
-            return true;
-        }
-      }
       }
       return false;
     }
@@ -196,11 +212,13 @@ public class JSONHash<K,V>{
         return true;
       } // hasNext()
 
-      public ArrayList<Pair<K,V>> next() {
+      public Pair<K,V> next() {
 
+        @SuppressWarnings("unchecked")
         ArrayList<Pair<K, V>> alist = (ArrayList<Pair<K, V>>) buckets[i];
-     
-        return alist;
+        /** The position in the underlying array */
+        int j = 0;
+        return alist.get(j);
         
       } // next()
     }; // new Iterator
@@ -218,6 +236,7 @@ public class JSONHash<K,V>{
 
     // Find out where the key belongs and put the pair there.
     int index = find(key);
+    @SuppressWarnings("unchecked")
     ArrayList<Pair<K,V>> alist = (ArrayList<Pair<K,V>>) this.buckets[index];
     // Special case: Nothing there yet
     if (alist == null) {

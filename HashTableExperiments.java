@@ -2,9 +2,10 @@ import java.io.PrintWriter;
 
 /**
  * A simple set of experiments using our new hash tables.
+ * Also containes experiments for JSONHash
  *
  * @author Samuel A. Rebelsky
- * @author Your Name Here
+ * @author Che Glenn
  */
 public class HashTableExperiments {
 
@@ -40,6 +41,12 @@ public class HashTableExperiments {
     } // try/catch
   } // checkGet(PrintWriter, HashTable<String,String>, String)
 
+  /**
+   * checks if the the JSONHash's are equal by calling JSONHash.equals()
+   * @param pen
+   * @param htab
+   * @param other
+   */
   public static void checkEquals(PrintWriter pen, JSONHash<JSONString,JSONValue> htab, JSONHash<JSONString,JSONValue> other) {
     pen.print("Comparing hash tables ...");
     pen.flush();
@@ -48,6 +55,17 @@ public class HashTableExperiments {
     } catch (Exception e) {
       pen.println("Failed beacause " + e);
     }
+  }
+
+  /**
+   * To string experiment
+   * @param pen
+   * @param htab
+   */
+  public static void toStringExperiment(PrintWriter pen, JSONHash<JSONString,JSONValue> htab) {
+    htab.set(new JSONString("anteater"), new JSONString("anteater"));
+    htab.set(new JSONString("buffalo"), new JSONString("buffalo"));
+    pen.println(htab.toString());
   }
 
   /**
@@ -81,47 +99,7 @@ public class HashTableExperiments {
   } // matchingKeysExpt(PrintWriter, HashTable)
 
   /**
-   * Explore what happens when we use set with a wide variety of key/value
-   * pairs.
-   */
-  public static void multipleSetExpt(PrintWriter pen,
-      JSONHash<JSONString,JSONValue> htab) {
-    int numwords = words.length;
-    for (int i = 0; i < numwords; i++) {
-      // htab.dump(pen);
-      htab.set(words[i], words[i]);
-      for (int j = 0; j <= i; j++) {
-        try {
-          String str = htab.get(words[j]);
-          if (!str.equals(words[j])) {
-            pen.println("After setting " + words[i] + ", " + words[j]
-                + " no longer yields itself.");
-            htab.dump(pen);
-            return;
-          } // if we didn't get the expected value.
-        } catch (Exception e) {
-          pen.println("After setting " + words[i] + ", " + words[j]
-              + " is no longer in the table.");
-          htab.dump(pen);
-          return;
-        } // try/catch
-      } // for j
-    } // for i
-    htab.dump(pen);
-    pen.println();
-  } // multipleSetExpt(PrintWriter, HashTable)
-
-  /**
-   * Explore what happens when we remove elements.
-   */
-  public static void removeExpt(PrintWriter pen,
-      HashTable<String,String> htab) {
-    // STUB
-  } // removeExpt(PrintWriter, HashTable)
-
-
-  /**
-   * Equals expt
+   * Equals experiment
    */
 
    public static void equalsExpt(PrintWriter pen, JSONHash<JSONString,JSONValue> htab, JSONHash<JSONString,JSONValue> other){

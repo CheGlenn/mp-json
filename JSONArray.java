@@ -5,7 +5,7 @@ import java.util.Iterator;
 /**
  * JSON arrays.
  */
-public class JSONArray {
+public class JSONArray implements JSONValue{
 
   // +--------+------------------------------------------------------
   // | Fields |
@@ -36,6 +36,10 @@ public class JSONArray {
    */
   public String toString() {
     String string = "[";
+    /**
+     * Uses an iterator to check for remaining values in the array, and add next value to a return string
+     * add a comma to return string while there are more values to add
+     */
     Iterator iter = this.values.iterator();
     while(iter.hasNext()){
       string += iter.next();
@@ -47,6 +51,9 @@ public class JSONArray {
       }
       */
     }//while
+    /**
+     * Close with a brace and return string
+     */
     string += "]";
     return string;       
   } // toString()
@@ -55,6 +62,11 @@ public class JSONArray {
    * Compare to another object.
    */
   public boolean equals(Object other) {
+    /**
+     * first check if other is this type
+     * then create JSONArray using other object
+     * return true/false
+     */
     if((other instanceof JSONArray)){
       JSONArray otherArr = (JSONArray) other;
       return this.values.equals(otherArr.values);
